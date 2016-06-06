@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <script src="/jquery.min.js"></script>
+    <script src="/dropdown.js"></script>
+    <link rel="stylesheet" type="text/css" href="/style1.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; background: #BDBDBD}
+      
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+
+    </style>
+  </head>
+  <body>
+
+    <form id = "name" >
+    <div id ="namehold">
+     <input type="text" id = "namebox" placeholder="Name" style = "position:relative;top:2px">
+    <select class="selectpicker" data-live-search="true" data-width="120px">
+      <option data-tokens="english English">English</option>
+      <option data-tokens="spanish Spanish">Spanish</option>
+      <option data-tokens="japanese Japanese">Japanese</option>
+      <option data-tokens="chinese Chinese">Chinese</option>
+    </select>
+    </div>
+    <div id = "buthold">
+      <button type='button' id="setter" onclick="setName()">Set name and language</button>
+    </div>
+    </form>
+
+    
+
+
+
+
+
+    <ul id="messages"></ul>
+    <form id = "send" action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+    <script>
+      var currLanguage;
+      var transScript = document.createElement('script');
+      transScript.type = 'text/javascript';
+      var languages = {"English":"en", "Spanish": "es", "Chinese":"zh", "Japanese":"ja"}
+      var translated = "" ;
+      function setName(){  
+        socket.emit('name', $("#namebox")[0].value);
+        unparsedLanguage = $(".selectpicker").find("option:selected").text();
+        currLanguage = languages[unparsedLanguage];
+      }
+      function translateTextandPost(response) {
+        translated = response.data.translations[0].translatedText;
+        
+      }
+      
+
+
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        var user = msg["user"];
+        var message = msg["message"];
+        var translate = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyBzy-WtNVDGnEqRAcQOZiOiweHMT1V3Xug&target=' + currLanguage + "&callback=translateTextandPost&q=" + message;
+        $.get(translate, function(){})
+        .done(function(){
+          var translatedMessage = translated;
+          $('#messages').append($('<li>').text(user+": "+translatedMessage));
+        });
+
+       
+        // document.getElementsByTagName('head')[0].appendChild(transScript);
+        
+        
+      });
+    </script>
+  </body>
+</html>

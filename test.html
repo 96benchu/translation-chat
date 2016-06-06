@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Translate API Example</title>
+  </head>
+  <body>
+    <div id="sourceText">Hello world</div>
+    <div id="translation"></div>
+    <script>
+      
+    </script>
+    <script>
+      var newScript = document.createElement('script');
+      newScript.type = 'text/javascript';
+      var sourceText = escape(document.getElementById("sourceText").innerHTML);
+      function translateText(response) {
+        document.getElementById("translation").innerHTML += "<br>" + response.data.translations[0].translatedText;
+      }
+      // WARNING: Your API key will be visible in the page source.
+      // To prevent misuse, restrict your key to designated domains or use a
+      // proxy to hide your key.
+      var source = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyBzy-WtNVDGnEqRAcQOZiOiweHMT1V3Xug&source=en&target=de&callback=translateText&q=' + sourceText;
+      newScript.src = source;
+
+      document.getElementsByTagName('head')[0].appendChild(newScript);
+    </script>
+  </body>
+</html>
