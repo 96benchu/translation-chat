@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Translation Chat</title>
     <script src="/jquery.min.js"></script>
     <script src="/dropdown.js"></script>
     <link rel="stylesheet" type="text/css" href="/style1.css">
@@ -90,11 +90,19 @@
         var user = msg["user"];
         var message = msg["message"];
         var translate = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyBzy-WtNVDGnEqRAcQOZiOiweHMT1V3Xug&target=' + currLanguage + "&callback=translateTextandPost&q=" + message;
-        $.get(translate, function(){})
-        .done(function(){
-          var translatedMessage = translated;
-          $('#messages').append($('<li>').text(user+": "+translatedMessage));
-        });
+        if(user == $("#namebox")[0].value)
+          {
+            // no translation
+            user = "You";
+            var translatedMessage = message;
+            $('#messages').append($('<li>').text(user+": "+translatedMessage));
+          } else {
+          $.get(translate, function(){})
+          .done(function(){
+            var translatedMessage = translated;
+            $('#messages').append($('<li>').text(user+": "+translatedMessage));
+          });
+        }
 
        
         // document.getElementsByTagName('head')[0].appendChild(transScript);
