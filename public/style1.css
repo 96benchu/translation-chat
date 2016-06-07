@@ -2,21 +2,22 @@
 #test { font: 20px Helvetica, Arial; }
 
 #send {  padding: 3px; position: fixed; top:700px; width: 70%; font-family:Roboto-light;}
-#send input {background: #52B3D9; padding: 15px; width: 90%; margin-right: .5%; height: 50px; position:relative;top:1px; font-size:20px; color: black; }
-#send button { width: 9.5%; border: none; padding: 10px;height: 49px; position: relative; left: 2px; font-size: 20px;}
+#send input {background: #4B77BE; left: 0px; border: solid 2px white; padding: 15px; width: 90%; margin-right: .3%; height: 49px; position:relative;top:-2px; font-size:20px; color: white; }
+#send button {background: #4B77BE; width: 9.5%; border: solid 2px white; padding: 10px;height: 49px; position: relative; left: 2px; font-size: 20px; color: white;}
 
 
 /*place holder color*/
 #send input::-webkit-input-placeholder {
-   color: black;
+
+   color: white;
 }
 
 #send input:-moz-placeholder { /* Firefox 18- */
-   color: black;  
+   color: white;  
 }
 
 #send input::-moz-placeholder {  /* Firefox 19+ */
-   color: black;  
+   color: white;  
 }
 
 
@@ -26,7 +27,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font: 20px ; font-family: Roboto-light; background: #e74c3c}
+
   
   #messages {
     font-family: Roboto-light;
@@ -39,8 +40,9 @@
     height: 700px; 
     width: 70%; 
     overflow:auto;
-    background: #e74c3c;
-    /*border: 2px solid black;*/
+    background: #4B77BE;
+    border: 2px white solid;
+    
     
     }
   #messages li { padding: 5px 10px; }
