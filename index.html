@@ -22,18 +22,19 @@
     
 
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; background: #BDBDBD}
       
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-
     </style>
   </head>
   <body>
 
-    <form id = "name" >
+
+
+    <ul id="messages"></ul>
+    <form id = "send" action="">
+      <input id="m" autocomplete="off" placeholder="Message here..." /><button>Send</button>
+    </form>
+
+    <form id = "name" style>
     <div id ="namehold">
      <input type="text" id = "namebox" placeholder="Name" style = "position:relative;top:2px">
     <select class="selectpicker" data-live-search="true" data-width="120px">
@@ -48,39 +49,37 @@
     </div>
     </form>
 
-    
-
-
-
-
-
-    <ul id="messages"></ul>
-    <form id = "send" action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-
-
     <script>
       var currLanguage;
       var transScript = document.createElement('script');
       transScript.type = 'text/javascript';
       var languages = {"English":"en", "Spanish": "es", "Chinese":"zh", "Japanese":"ja"}
       var translated = "" ;
+      var socketid;
+      var currposchat = 0;
+      
       function setName(){  
         socket.emit('name', $("#namebox")[0].value);
         unparsedLanguage = $(".selectpicker").find("option:selected").text();
         currLanguage = languages[unparsedLanguage];
+        socket.on('socketid', function(id){
+          socketid = id;
+        });
       }
       function translateTextandPost(response) {
         translated = response.data.translations[0].translatedText;
         
       }
-      
-
 
       var socket = io();
+      //finds socket.id
+      socket.on('connect', function(){
+        socketid = socket.io.engine.id;
+
+      });
+      
       $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
@@ -89,18 +88,26 @@
       socket.on('chat message', function(msg){
         var user = msg["user"];
         var message = msg["message"];
+        var sentsocketid = msg["socketid"];
+        console.log(sentsocketid+","+user);
+        console.log(socketid);
         var translate = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyBzy-WtNVDGnEqRAcQOZiOiweHMT1V3Xug&target=' + currLanguage + "&callback=translateTextandPost&q=" + message;
-        if(user == $("#namebox")[0].value)
+        currposchat+=10;
+        var div = $("#messages");
+        if("/#"+socketid == sentsocketid)
           {
             // no translation
             user = "You";
             var translatedMessage = message;
-            $('#messages').append($('<li>').text(user+": "+translatedMessage));
+            $('#messages').append($('<li id = "you">').text(user+": "+translatedMessage));
+            div.scrollTop(currposchat);
+
           } else {
           $.get(translate, function(){})
           .done(function(){
             var translatedMessage = translated;
             $('#messages').append($('<li>').text(user+": "+translatedMessage));
+            div.scrollTop(currposchat);
           });
         }
 

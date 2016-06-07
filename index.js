@@ -20,11 +20,13 @@ io.on('connection', function(socket){
   //add to list
   socket.on('name', function(userid){
     usernames[socket.id] = userid;
+
   });  
 
   //send message
   socket.on('chat message', function(msg){
-    io.emit('chat message', {"user" :usernames[socket.id], "message": msg});
+    console.log(socket.id + ","+ usernames[socket.id]);
+    io.emit('chat message', {"user" :usernames[socket.id], "message": msg, "socketid": socket.id});
   });
   
   //delete from list
