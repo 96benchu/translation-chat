@@ -4,6 +4,9 @@
     <title>Translation Chat</title>
     <script src="/jquery.min.js"></script>
     <script src="/dropdown.js"></script>
+    <link rel="stylesheet" href="/Remodal-1.0.7/dist/remodal.css">
+    <link rel="stylesheet" href="/Remodal-1.0.7/dist/remodal-default-theme.css">
+    <script src="/Remodal-1.0.7/dist/remodal.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/style1.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -21,12 +24,28 @@
 
     
 
-    <style>
-      
-    </style>
+    
   </head>
-  <body style = "background-color: #3A539B">
-
+  <body style = "background-color: gray">
+    <div class="remodal" data-remodal-id="modal">
+      <button data-remodal-action="close" class="remodal-close"></button>
+      <p id = "pre" style = "font-family: Roboto-thin; font-weight: bold; font-size: 20px;"> Set your name and language</p>
+      <br>
+      <form id = "name" style>
+        <div id ="namehold">
+         <input type="text" id = "namebox" placeholder="Name" style = "position:relative;top:2px">
+        <select class="selectpicker" data-live-search="true" data-width="120px">
+          <option data-tokens="english English">English</option>
+          <option data-tokens="spanish Spanish">Spanish</option>
+          <option data-tokens="japanese Japanese">Japanese</option>
+          <option data-tokens="chinese Chinese">Chinese</option>
+        </select>
+        </div>
+      </form>
+      <br>
+      <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+      <button data-remodal-action="confirm" class="remodal-confirm" onclick="setName()">OK</button>
+    </div>
 
     <ul id="messages"></ul>
     <form id = "send" action="">
@@ -34,20 +53,23 @@
     </form>
    
 
-    <form id = "name" style>
-    <div id ="namehold">
-     <input type="text" id = "namebox" placeholder="Name" style = "position:relative;top:2px">
-    <select class="selectpicker" data-live-search="true" data-width="120px">
-      <option data-tokens="english English">English</option>
-      <option data-tokens="spanish Spanish">Spanish</option>
-      <option data-tokens="japanese Japanese">Japanese</option>
-      <option data-tokens="chinese Chinese">Chinese</option>
-    </select>
-    </div>
+    
     <div id = "buthold">
-      <button type='button' id="setter" onclick="setName()">Set name and language</button>
+      <p style = "font-family: Roboto-thin;font-size: 60px; text-align:center;">Hello welcome translation chat</p>
+
+      <p style = "text-align:center;">________________________ </p>
+      <br>
+      <p style = "font-family: Roboto-thin; font-size: 35px; text-align:left ; position:absolute; right: 90px; word-wrap: break-word;max-width: 375px; "> All chat messages will be translated into a language of your choice</p>
+      <br>
+
+      <p style = "font-family: Roboto-thin; font-size: 25px; float:left; position:relative; left: 90px; top: 200px;"> You are currently chatting as</p> 
+      <p id = "changename" style = "font-family: Roboto-thin; font-weight: 900; font-size: 30px; position:relative; left: 95px; top: 195px; "> Jose</p> 
+      <p style = "font-family: Roboto-thin; font-size: 25px;  position:relative; left: 90px; top: 200px; float:left;"> and are recieving chats in</p>
+      <p id = "changelang" style = "font-family: Roboto-thin; font-weight: 900; font-size: 30px; position:relative; left: 95px; top: 195px;"> English</p>
+
+      <button type='button' id="change" data-remodal-target="modal">Change Name or Language</button>
     </div>
-    </form>
+    
     
 
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -61,9 +83,13 @@
       var socketid;
       var currposchat = 0;
       
-      function setName(){  
-        socket.emit('name', $("#namebox")[0].value);
+      function setName(){
+        //changes current stuff
+        var currname =  $("#namebox")[0].value;
+        $("#changename").text(currname);
+        socket.emit('name', currname);
         unparsedLanguage = $(".selectpicker").find("option:selected").text();
+        $("#changelang").text(unparsedLanguage);
         currLanguage = languages[unparsedLanguage];
         socket.on('socketid', function(id){
           socketid = id;
@@ -71,14 +97,18 @@
       }
       function translateTextandPost(response) {
         translated = response.data.translations[0].translatedText;
-        
       }
+
+      window.onload = function() {
+        document.getElementById("change").click();
+      };
+      
+
 
       var socket = io();
       //finds socket.id
       socket.on('connect', function(){
         socketid = socket.io.engine.id;
-
       });
       
       $('form').submit(function(){
