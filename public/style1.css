@@ -1,6 +1,6 @@
 
 
-#send { padding: 3px; position: fixed; top:73.5vh; width: 70%; font-family:Roboto-light;}
+#send { padding: 3px; position: fixed; top:84.5vh; width: 70%; font-family:Roboto-light;}
 #send input 
 {
     background: gray;
@@ -65,7 +65,7 @@
     list-style-type: none; 
     margin: 0; 
     padding: 0; 
-    height:73vh; 
+    height:84vh; 
     width: 70%; 
     overflow:auto;
     background: gray;
