@@ -1,7 +1,6 @@
 
-#test { font: 20px Helvetica, Arial; }
 
-#send {  padding: 3px; position: fixed; top:73.5vh; width: 70%; font-family:Roboto-light;}
+#send { padding: 3px; position: fixed; top:73.5vh; width: 70%; font-family:Roboto-light;}
 #send input 
 {
     background: gray;
@@ -114,8 +113,9 @@
     font-family: Helvetica;
     position: relative;
     padding: 16px 32px;
-    top:195px;
-    left:145px;
+    top:0px;
+    left:7.55vw;
+    text-align:center;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
