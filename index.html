@@ -132,9 +132,11 @@
         var translate = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyBzy-WtNVDGnEqRAcQOZiOiweHMT1V3Xug&target=' + currLanguage + "&callback=translateTextandPost&q=" + message;
         currposchat+=10;
         var div = $("#messages");
+
         if("/#"+socketid == sentsocketid)
           {
             // no translation
+            window.alert("done");
             user = "You";
             var translatedMessage = message;
             $('#messages').append($('<li id = "you">').text(user+": "+translatedMessage));
