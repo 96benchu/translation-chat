@@ -29,7 +29,7 @@
   <body style = "background-color: gray">
     <div class="remodal" data-remodal-id="modal">
       <button data-remodal-action="close" class="remodal-close"></button>
-      <p id = "pre" style = "font-family: Roboto-thin; font-weight: bold; font-size: 20px;"> Set your name and language</p>
+      <p id = "pre" style = "font-family: Roboto-thin; font-weight: bold; font-size: 20px; color:black;"> Set your name and language</p>
       <br>
       <form id = "name" style>
         <div id ="namehold">
@@ -50,6 +50,7 @@
       <button data-remodal-action="confirm" class="remodal-confirm" onclick="setName()">OK</button>
     </div>
 
+
     <ul id="messages"></ul>
     <form id = "send" action="">
     <input id="m" autocomplete="off" placeholder="Message here..." /><button>Send</button>
@@ -65,16 +66,15 @@
       <p style = "font-family: Roboto-thin; font-size: 35px; text-align:center ;word-wrap: break-word; position: relative;  "> All chat messages will be translated into a language of your choice</p>
       
       <br>
-      <br>
-      <br>
-      <br>
 
-      <p style = "font-family: Roboto-thin; font-size: 25px; float:left;  left:4.685vw; top: 5px; position:relative; "> You are currently chatting as</p> 
-      <p id = "changename" style = "font-family: Roboto-thin; font-weight: 900; font-size: 30px; position:relative; left: 4.94vw; top: 0px; "> Jose</p> 
-      <p style = "font-family: Roboto-thin; font-size: 25px;  position:relative; left: 4.685vw; top: 5px; float:left;"> and are recieving chats in</p>
-      <p id = "changelang" style = "font-family: Roboto-thin; font-weight: 900; font-size: 30px; position:relative; left: 4.94vw; top: 0px;"> English</p>
-
+      <span style = "font-family: Roboto-thin; font-size: 25px; display:block; "> You are currently chatting as</p>
+      <span id = "changename" style = "font-family: Roboto-thin; font-weight: 900; font-size: 30px; position:relative; bottom:12px;  ">  Jose</span> 
+      <br>
+      <span style = "font-family: Roboto-thin; font-size: 25px; text-align:center; position:relative;display:block; "> and are recieving chats in</span>
+      <span id = "changelang" style = "font-family: Roboto-thin; font-weight: 900; font-size: 30px; position:relative; ">  English</span>
+      <div style = "text-align:center">
       <button type='button' id="change" data-remodal-target="modal">Change Name or Language</button>
+      </div>
     </div>
     
     

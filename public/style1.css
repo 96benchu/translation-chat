@@ -104,8 +104,9 @@
     border-radius: 4px;
 }
 
-#buthold p{
+#buthold span,p{
     color:white;
+    text-align: center;
 
 }
 
@@ -113,12 +114,12 @@
     font-family: Helvetica;
     position: relative;
     padding: 16px 32px;
-    top:0px;
-    left:7.55vw;
-    text-align:center;
-    display: inline-block;
+    top: 2.7vh;
+
+   
+    margin: 0 auto;
     font-size: 16px;
-    margin: 4px 2px;
+    
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
