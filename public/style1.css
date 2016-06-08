@@ -1,7 +1,7 @@
 
 #test { font: 20px Helvetica, Arial; }
 
-#send {  padding: 3px; position: fixed; top:700px; width: 70%; font-family:Roboto-light;}
+#send {  padding: 3px; position: fixed; top:73.5vh; width: 70%; font-family:Roboto-light;}
 #send input 
 {
     background: gray;
@@ -66,7 +66,7 @@
     list-style-type: none; 
     margin: 0; 
     padding: 0; 
-    height: 700px; 
+    height:73vh; 
     width: 70%; 
     overflow:auto;
     background: gray;
@@ -115,7 +115,7 @@
     position: relative;
     padding: 16px 32px;
     top:195px;
-    left:155px;
+    left:145px;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
