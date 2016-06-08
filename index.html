@@ -37,8 +37,12 @@
         <select class="selectpicker" data-live-search="true" data-width="120px">
           <option data-tokens="english English">English</option>
           <option data-tokens="spanish Spanish">Spanish</option>
+          <option data-tokens="french French">French</option>
+          <option data-tokens="german German">German</option>
+          <option data-tokens="dutch Dutch">Dutch</option>
           <option data-tokens="japanese Japanese">Japanese</option>
           <option data-tokens="chinese Chinese">Chinese</option>
+
         </select>
         </div>
       </form>
@@ -78,7 +82,7 @@
       var currLanguage;
       var transScript = document.createElement('script');
       transScript.type = 'text/javascript';
-      var languages = {"English":"en", "Spanish": "es", "Chinese":"zh", "Japanese":"ja"}
+      var languages = {"English":"en", "Spanish": "es", "Chinese":"zh", "Japanese":"ja", "Dutch": "nl", "French": "fr", "German": "de"}
       var translated = "" ;
       var socketid;
       var currposchat = 0;
